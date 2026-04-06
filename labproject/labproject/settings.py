@@ -150,10 +150,11 @@ def disconnectDB(conn):
 
 resultMessages={
     1001:"aldaa",
-    1002:"",
-    1003:"",
+    1002:"json buruu",
+    1003:"talbar dutuu",
     1004:"",
     1005:"",
-    1006:"dotood aldaa",
+    1006:"db error",
+    1007:"busad aldaa",
     200:"amjilttei",
 }

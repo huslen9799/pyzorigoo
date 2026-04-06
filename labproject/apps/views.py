@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import pytz
 from datetime import datetime 
+import json
 @csrf_exempt
 def dt_gettime(request):
     if request.method != "GET":
@@ -24,13 +25,21 @@ def dt_gettime(request):
     
 @csrf_exempt
 def dt_one(request):
-      if request.method != "POST":
+    if request.method != "POST":
         resp_data =[{"function":"dt_one"}]
         return JsonResponse(sendResponse(request,1001,resp_data,"no_action"))
-    
-
+        
+    try:
+        jsons =json.loads(request.body)
+    except json.JSONDecodeError:
+        resp_data=[{"functio":"dt_one"}]
+        return JsonResponse(sendResponse(request,1002,resp_data,"no_action"))
   
- 
+    requered_fields = ["action","id"]
+    if not all(field in jsons for field in requered_fields):
+        resp_data =[{"function":"dt_one"}]
+        return JsonResponse(sendResponse(request,1003,resp_data,"no_action"))
+    
         # {
         #     "action":"one",
         #     "id":5
